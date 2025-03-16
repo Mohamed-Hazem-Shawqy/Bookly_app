@@ -1,3 +1,4 @@
+import 'package:bookly_app/core/functions/custom_url.dart';
 import 'package:bookly_app/core/widgets/on_error_message.dart';
 import 'package:bookly_app/core/widgets/on_loading.dart';
 import 'package:bookly_app/features/search/presentation/manager/search_cubit/search_cubit.dart';
@@ -16,10 +17,13 @@ class SearchResultListView extends StatelessWidget {
             padding: EdgeInsets.zero,
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.all(10),
-              child: ListTile(
-                leading: Image.network(
-                    state.books[index].volumeInfo?.imageLinks?.thumbnail ?? ""),
-                title: Text(state.books[index].volumeInfo?.title ?? 'No Title'),
+              child: InkWell(
+                onTap: ()=> launchCustomUrl(context, state.books[index].volumeInfo!.previewLink),
+                child: ListTile(
+                  leading: Image.network(
+                      state.books[index].volumeInfo?.imageLinks?.thumbnail ?? ""),
+                  title: Text(state.books[index].volumeInfo?.title ?? 'No Title'),
+                ),
               ),
             ),
             itemCount: state.books.length,
